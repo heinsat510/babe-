@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy 18th Birthday My Love 🎂</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  min-height:100vh;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",serif;
+  color:#fff;
+  overflow-x:hidden;
+  background-color:#120920;
+}
+.grain-overlay{
+  position:fixed;inset:0;
+  pointer-events:none;
+  opacity:0.07;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index:1;
+}
+.page-wrap{
+  position:relative;
+  z-index:2;
+}
+.page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  transition: opacity 1.6s ease, transform 1.6s ease;
+}
+.hidden-page{
+  opacity:0;
+  pointer-events:none;
+  position:absolute;
+  top:0;left:0;
+  transform: translateY(20px);
+}
+.lang-switch{
+  position:fixed;
+  top:16px;
+  right:16px;
+  z-index:10;
+  display:flex;
+  gap:8px;
+}
+.lang-btn{
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid #ffc8dd60;
+  background:rgba(255,200,221,0.1);
+  color:#ffdde8;
+  font-size:14px;
+  cursor:pointer;
+  backdrop-filter:blur(6px);
+}
+.lang-btn.active{
+  background:#ff7fa8;
+  border-color:#ff7fa8;
+}
+#countPage{
+  background:linear-gradient(160deg,#10081e,#221238,#371c57);
+}
+.count-heading{
+  font-size:22px;
+  letter-spacing:2px;
+  margin-bottom:18px;
+  animation:floatSoft 3.2s ease-in-out infinite;
+  opacity:0.9;
+}
+.count-timer{
+  font-size:120px;
+  font-weight:700;
+  color:#ffc8dd;
+  text-shadow: 0 0 24px #ff8fb8, 0 0 40px #ff709955;
+}
+.count-sub{margin-top:10px;font-size:18px;opacity:0.75;}
+.tap-music-btn{
+  margin-top:36px;
+  padding:14px 28px;
+  border-radius:999px;
+  border:1px solid #ffc8dd60;
+  background:rgba(255,200,221,0.12);
+  color:#ffdde8;
+  font-size:16px;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:0.3s ease;
+}
+.tap-music-btn:hover{background:rgba(255,200,221,0.25);transform:scale(1.05);}
+#mainPage{
+  background:linear-gradient(160deg,#180c2b,#2c1747,#452468);
+}
+.canvas-particles{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:1;
+}
+.letter-card{
+  max-width:640px;
+  width:100%;
+  background:rgba(255,240,246,0.07);
+  backdrop-filter:blur(14px);
+  border-radius:26px;
+  border:1px solid #ffc8dd33;
+  padding:34px 30px;
+  margin-bottom:30px;
+  box-shadow:0 10px 45px #00000044, 0 0 20px #ff88aa15;
+}
+.letter-title{
+  text-align:center;
+  font-size:36px;
+  color:#ffdde8;
+  margin-bottom:26px;
+  text-shadow:0 0 14px #ff97bb60;
+  animation:floatSoft 3.4s ease-in-out infinite;
+}
+.photo-row{
+  display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:28px;
+}
+.photo-row img{
+  width:175px;
+  border-radius:16px;
+  border:2px solid #ffc8dd70;
+  box-shadow:0 5px 20px #ff88aa28;
+  object-fit:cover;
+  transition:0.3s;
+}
+.photo-row img:hover{transform:scale(1.03);}
+.letter-body{
+  line-height:1.85;
+  font-size:17px;
+  text-align:center;
+  color:#fff2f7;
+  margin-bottom:24px;
+}
+.btn-main{
+  display:block;
+  margin:12px auto;
+  padding:14px 28px;
+  border-radius:999px;
+  border:none;
+  background:#ff7fa8;
+  color:white;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.25s ease;
+}
+.btn-main:hover{background:#ff5b8f;transform:scale(1.04);}
+.footer-note{
+  text-align:center;
+  margin-top:14px;
+  font-size:16px;
+  color:#ffc8ddaa;
+}
+/* Gift Box */
+.gift-container{
+  margin:40px auto;
+  text-align:center;
+}
+.gift-box{
+  width:160px;height:140px;
+  margin:0 auto;
+  position:relative;
+  cursor:pointer;
+}
+.gift-lid{
+  width:170px;height:44px;
+  background:#ff7fa8;
+  border-radius:6px;
+  position:absolute;
+  top:0;left:-5px;
+  transition:transform 0.7s ease;
+  transform-origin:center bottom;
+  z-index:2;
+}
+.gift-base{
+  width:160px;height:96px;
+  background:#ffb8d2;
+  border-radius:0 0 8px 8px;
+  position:absolute;
+  bottom:0;
+}
+.gift-ribbon-v{
+  width:14px;height:100%;
+  background:#fff;
+  position:absolute;
+  left:50%;transform:translateX(-50%);
+  z-index:3;
+}
+.gift-ribbon-h{
+  width:100%;height:14px;
+  background:#fff;
+  position:absolute;
+  top:50%;transform:translateY(-50%);
+  z-index:3;
+}
+.gift-box.open .gift-lid{
+  transform:rotateX(110deg);
+}
+/* Modal Overlay — FIXED SCROLL */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.72);
+  z-index:20;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:24px 16px;
+  opacity:0;
+  pointer-events:none;
+  transition:0.4s ease;
+  overflow-y:auto;
+}
+.modal-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+.modal-box{
+  max-width:620px;
+  width:100%;
+  background:#1c1030;
+  backdrop-filter:blur(16px);
+  border-radius:24px;
+  border:1px solid #ffc8dd40;
+  padding:32px 28px;
+  margin: 24px 0;
+  transform:scale(0.85) translateY(15px);
+  transition:0.4s ease;
+}
+.modal-overlay.active .modal-box{
+  transform:scale(1) translateY(0);
+}
+.love-letter-text{
+  line-height:1.9;
+  font-size:16px;
+  color:#fff2f7;
+  text-align:left;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.love-letter-text::-webkit-scrollbar{
+  width:6px;
+}
+.love-letter-text::-webkit-scrollbar-thumb{
+  background:#ffb8d270;
+  border-radius:99px;
+}
+.love-letter-text::-webkit-scrollbar-track{
+  background:transparent;
+}
+.close-modal{
+  margin-top:24px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+/* Memories Gallery */
+.mem-wrap{
+  max-width:700px;
+  width:100%;
+}
+.mem-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px,1fr));
+  gap:16px;
+  margin-top:20px;
+  max-height:65vh;
+  overflow-y:auto;
+  padding:8px;
+}
+.mem-card{
+  background:rgba(255,255,255,0.06);
+  border-radius:14px;
+  padding:10px;
+  border:1px solid #ffc8dd30;
+  text-align:center;
+}
+.mem-card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:8px;
+}
+.mem-caption{
+  font-size:12px;
+  color:#ffdde8;
+  line-height:1.4;
+}
+/* Question modal */
+.q-text{
+  font-size:19px;
+  margin-bottom:15px;
+  color:#ffe6f2;
+  text-align:center;
+}
+textarea{
+  width:100%;
+  min-height:92px;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  background:rgba(255,255,255,0.1);
+  color:#fff;
+  font-size:16px;
+  outline:none;
+}
+textarea::placeholder{color:#ffdde870;}
+.btn-row{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+.ans-btn{
+  padding:13px 24px;
+  border-radius:999px;
+  border:none;
+  background:#ff7fa8;
+  color:white;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.25s ease;
+}
+.ans-btn:hover{background:#ff5b8f;transform:scale(1.04);}
+.ans-btn.no-btn{
+  background:#666;
+  transition:0.15s;
+}
+.ans-display{
+  margin-top:15px;
+  font-size:17px;
+  color:#ffdde8;
+  min-height:26px;
+  text-align:center;
+}
+.goodgirl-text{
+  text-align:center;
+  font-size:20px;
+  color:#ffc8dd;
+  margin:16px 0;
+  animation:floatSoft 2s ease-in-out infinite;
+}
+/* Final animated wish */
+.final-wish-wrap{
+  position:fixed;inset:0;
+  background:rgba(12,6,22,0.92);
+  z-index:30;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:0.8s;
+}
+.final-wish-wrap.show{
+  opacity:1;pointer-events:auto;
+}
+.final-text{
+  font-size:clamp(32px,8vw,60px);
+  color:#ffdde8;
+  text-shadow:0 0 22px #ff8fb8;
+  animation:wishBounce 2.2s ease-in-out infinite;
+  text-align:center;
+  padding:20px;
+}
+@keyframes floatSoft{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-12px);}
+}
+@keyframes wishBounce{
+  0%,100%{transform:scale(1);opacity:0.9;}
+  50%{transform:scale(1.08);opacity:1;}
+}
+</style>
+</head>
+<body>
+<div class="grain-overlay"></div>
+<div class="lang-switch">
+  <button class="lang-btn active" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="my">မြန်မာ</button>
+  <button class="lang-btn" data-lang="zh">中文</button>
+</div>
+<div class="page-wrap">
+  <!-- Countdown -->
+  <div id="countPage" class="page">
+    <div class="count-heading" data-en="Waiting for 11:59 🕒" data-my="၁၁း၅၉ အတွက် စောင့်နေသည် 🕒" data-zh="等待11:59 🕒">Waiting for 11:59 🕒</div>
+    <div class="count-timer" id="timerDisplay">60</div>
+    <div class="count-sub" data-en="seconds remaining" data-my="စက္ကန့်ကျန်" data-zh="剩余秒数">seconds remaining</div>
+    <button class="tap-music-btn" id="musicTrigger" data-en="Tap here to enable music ♫" data-my="ဂီတဖွင့်ရန် နှိပ်ပါ ♫" data-zh="点击开启音乐 ♫">Tap here to enable music ♫</button>
+  </div>
+  <!-- Main Letter + Photo Page -->
+  <div id="mainPage" class="page hidden-page">
+    <canvas class="canvas-particles" id="particleCanvas"></canvas>
+    <div class="letter-card">
+      <h1 class="letter-title" data-en="Happy 18th Birthday my love 🎂" data-my="အချစ်လေးရဲ့ ၁၈ နှစ်ပြည့် မွေးနေ့မင်္ဂလာပါ 🎂" data-zh="亲爱的，18岁生日快乐 🎂">Happy 18th Birthday my love 🎂</h1>
+      <div class="photo-row">
+        <img src="lilgirl.jpg" alt="little you">
+        <img src="memory1.jpg" alt="sweet memory">
+        <img src="memory2.jpg" alt="memory">
+      </div>
+      <div class="letter-body" data-en="This is that sweet little girl from the old photo. She walked through countless days, laughed, cried, grew step-by-step. Today, that little girl officially turns 18 and becomes an adult. I’m so deeply proud of every hard moment and every happy moment you’ve lived through. Thank you for letting me walk alongside you in this wonderful chapter of your life. <br><br>✨ Now open your gift ✨" data-my="ဓာတ်ပုံထဲက ချစ်စရာမိန်းကလေးလေး ဒီလိုပါ။ မရေမတွက်နိုင်တဲ့နေ့ရက်တွေကို ဖြတ်သန်း၊ ရယ်၊ ငို၊ တစ်ဆင့်ပြီးတစ်ဆင့် ကြီးပြင်းလာခဲ့တယ်။ ဒီနေ့မှာတော့ အဲ့ဒီကလေးမလေးဟာ ၁၈ နှစ်ပြည့်ပြီး အရွယ်ရောက်ပြီ။ မင်းဖြတ်သန်းခဲ့တဲ့ အခက်အခဲနဲ့ ပျော်ရွှင်စရာအချိန်တိုင်းအတွက် ငါအရမ်းဂုဏ်ယူတယ်။ မင်းဘဝရဲ့ ဒီလှပတဲ့အခန်းကို ငါနဲ့အတူ လျှောက်လှမ်းခွင့်ပေးတဲ့အတွက် ကျေးဇူးတင်ပါတယ်။<br><br>✨ အခုလက်ဆောင်ဖွင့်ကြည့်ပါ ✨" data-zh="这就是照片里那个可爱的小女孩。她走过无数日子，欢笑、落泪，一步步长大。今天，这个小女孩正式满18岁，成为大人了。我为你经历的每一段艰难与快乐的时光深深骄傲。谢谢你让我陪你走过人生这美好的篇章。<br><br>✨ 现在打开你的礼物 ✨">This is that sweet little girl from the old photo. She walked through countless days, laughed, cried, grew step-by-step. Today, that little girl officially turns 18 and becomes an adult. I’m so deeply proud of every hard moment and every happy moment you’ve lived through. Thank you for letting me walk alongside you in this wonderful chapter of your life. <br><br>✨ Now open your gift ✨</div>
+       <div class="gift-container">
+        <div class="gift-box" id="giftBox">
+          <div class="gift-lid"></div>
+          <div class="gift-base"></div>
+          <div class="gift-ribbon-v"></div>
+          <div class="gift-ribbon-h"></div>
+        </div>
+      </div>
+      <button class="btn-main" id="memBtn" style="display:none;" data-en="Memories 📸" data-my="အမှတ်တရများ 📸" data-zh="回忆相册 📸">Memories 📸</button>
+      <button class="btn-main" id="qStartBtn" style="display:none;" data-en="Start Questions 💌" data-my="မေးခွန်းစတင် 💌" data-zh="开始回答问题 💌">Start Questions 💌</button>
+    </div>
+    <div class="footer-note" data-en="I will keep every single one of your answers safe forever 💌" data-my="မင်းရဲ့အဖြေတိုင်းကို ငါထာဝရထိန်းသိမ်းထားမယ် 💌" data-zh="我会永远珍藏你的每一个答案 💌">I will keep every single one of your answers safe forever 💌</div>
+  </div>
+</div>
+<!-- Love Letter Modal -->
+<div class="modal-overlay" id="letterModal">
+  <div class="modal-box">
+    <div class="love-letter-text" data-en="Happy Birthday to the girl who holds my entire heart. Tomorrow is your special day, and I wanted to put into words everything I feel for you. You have the most breathtaking eyes, and whenever you look at me with them... ahh babe, I completely melt.<br><br>People talk about love at first sight—you didn't quite have me at 'hello' (haha!), but looking back, maybe it was written long before we even met. I remember calling your brother my 'brother-in-law' before I even knew you face-to-face. Maybe some things are just destined to become real. My love for you isn't a single spark; it's something that keeps growing deeper and stronger every single day as I get to know the incredible soul you are.<br><br>I know how deeply you feel everything, and how much emotional depth lives beneath your calm grace. People who only look at the surface might misread you—or misread me. You might sometimes think I'm too nonchalant, or that I don't care deeply enough. But I want you to know the truth: I care more than words can say. I see everything. Even in the moments you think I don't notice, I'm watching, seeing, and holding every detail of you in my heart.<br><br>I’m pretty chill with most things in life, but my love for you is absolute. More than anything, I just want to see you happy and healthy. I live to take care of you, to make you laugh, and to be your safe harbor. And no matter what happens, whatever mistakes are made, whatever storms we face—I can always forgive you, because loving you is my greatest truth.<br><br>Happy Birthday, my love. You are my everything." data-zh="生日快樂，佔據了我整個心房的女孩。明天就是你的生日了，我想把所有想對你說的心意，化作最溫柔的字句寫給你。你的眼睛真的太好看了，每次你用那雙眼睛看著我時……天啊寶貝，我的心直接融化。<br><br>大家都說一見鍾情，其實你當初跟我打招呼時，我沒有立刻被電到（哈哈開玩笑的啦！），但回想起來，或許我們的緣分早就註定好。還沒真正見到你之前，我就已經先叫你哥「大舅子」了，也許這就是命運一步步變成現實的過程吧。我對你的愛不是那種瞬間即逝的火花，而是隨著每一天更深入了解你、認識你而日復一日地深植、生長。<br><br>我懂你那份隱藏在平靜外表下、細膩且深邃的情感世界。表面上我看起來很隨性，甚至有時候你可能會覺得我有點漫不經心、好像沒那麼在乎你，但我想讓你知道：我對你的在乎深刻到無法言喻。我一直在注意你，看著你做的每一件事、每一個細節，哪怕你以為我沒發現，其實我都默默看在眼裡。<br><br>對於生活中的很多事我都蠻隨緣、很 chill 的，但我對你的愛無比堅定。我最大的願望就是看你開開心心、健健康康的。我喜歡照顧你、喜歡看你笑的樣子。就算在某些時刻，你可能覺得我狀況外、不懂你的心，但其實我全都懂。無論發生什麼事、不管有什麼不完美，我都可以毫無保留地原諒你，因為我愛你，愛得那麼深。<br><br>生日快樂，我的摯愛">Happy Birthday to the girl who holds my entire heart. Tomorrow is your special day, and I wanted to put into words everything I feel for you. You have the most breathtaking eyes, and whenever you look at me with them... ahh babe, I completely melt.<br><br>People talk about love at first sight—you didn't quite have me at 'hello' (haha!), but looking back, maybe it was written long before we even met. I remember calling your brother my 'brother-in-law' before I even knew you face-to-face. Maybe some things are just destined to become real. My love for you isn't a single spark; it's something that keeps growing deeper and stronger every single day as I get to know the incredible soul you are.<br><br>I know how deeply you feel everything, and how much emotional depth lives beneath your calm grace. People who only look at the surface might misread you—or misread me. You might sometimes think I'm too nonchalant, or that I don't care deeply enough. But I want you to know the truth: I care more than words can say. I see everything. Even in the moments you think I don't notice, I'm watching, seeing, and holding every detail of you in my heart.<br><br>I’m pretty chill with most things in life, but my love for you is absolute. More than anything, I just want to see you happy and healthy. I live to take care of you, to make you laugh, and to be your safe harbor. And no matter what happens, whatever mistakes are made, whatever storms we face—I can always forgive you, because loving you is my greatest truth.<br><br>Happy Birthday, my love. You are my everything.</div>
+    <button class="btn-main close-modal" id="closeLetter" data-en="Close 💌" data-my="ပိတ်မည် 💌" data-zh="關閉 💌">Close 💌</button>
+  </div>
+</div>
+<!-- Memories Gallery Modal -->
+<div class="modal-overlay" id="memModal">
+  <div class="modal-box mem-wrap">
+    <div class="q-text" data-en="Our Memories 📸" data-my="ကျွန်တော်တို့ရဲ့အမှတ်တရများ 📸" data-zh="屬於我們的回憶 📸">Our Memories 📸</div>
+    <div class="mem-grid" id="memGrid">
+      <div class="mem-card"><img src="m01.jpg"><div class="mem-caption">Memory 1: The first time seeing lil version of u</div></div>
+      <div class="mem-card"><img src="m02.jpg"><div class="mem-caption">Memory 2: funny vivi</div></div>
+      <div class="mem-card"><img src="m03.jpg"><div class="mem-caption">Memory 3: was my wallpaper</div></div>
+      <div class="mem-card"><img src="m04.jpg"><div class="mem-caption">Memory 4: fangss, love this lil vampire</div></div>
+      <div class="mem-card"><img src="m05.jpg"><div class="mem-caption">Memory 5: cutie kitty</div></div>
+      <div class="mem-card"><img src="m06.jpg"><div class="mem-caption">Memory 6: was keeping all pics</div></div>
+      <div class="mem-card"><img src="m07.jpg"><div class="mem-caption">Memory 7: cold hearted w cold hands</div></div>
+      <div class="mem-card"><img src="m08.jpg"><div class="mem-caption">Memory 8: can look at you 27/7 </div></div>
+      <div class="mem-card"><img src="m09.jpg"><div class="mem-caption">Memory 9: still can't scare me</div></div>
+      <div class="mem-card"><img src="m10.jpg"><div class="mem-caption">Memory 10: aye yo Shan maly</div></div>
+      <div class="mem-card"><img src="m11.jpg"><div class="mem-caption">Memory 11: getting healed ahha </div></div>
+      <div class="mem-card"><img src="m12.jpg"><div class="mem-caption">Memory 12: lovely nigga，黑色's hehe</div></div>
+      <div class="mem-card"><img src="m13.jpg"><div class="mem-caption">Memory 13: my fav fit</div></div>
+      <div class="mem-card"><img src="m14.jpg"><div class="mem-caption">Memory 14: in love u devil</div></div>
+      <div class="mem-card"><img src="m15.jpg"><div class="mem-caption">Memory 15: You'r so pretty</div></div>
+      <div class="mem-card"><img src="m16.jpg"><div class="mem-caption">Memory 16: Soft light on you, rare type</div></div>
+      <div class="mem-card"><img src="m17.jpg"><div class="mem-caption">Memory 17: creammm, is it eatable</div></div>
+      <div class="mem-card"><img src="m18.jpg"><div class="mem-caption">Memory 18: latest pic,18 yo old really haha</div></div>
+
+    </div>
+    <button class="btn-main close-modal" id="closeMem" data-en="Close Memories 📸" data-my="အမှတ်တရပိတ်မည် 📸" data-zh="關閉回憶 📸">Close Memories 📸</button>
+  </div>
+</div>
+<!-- Q1 -->
+<div class="modal-overlay" id="q1Modal">
+  <div class="modal-box">
+    <div class="q-text" data-en="1. How do you feel about being an adult at 18 years old?" data-my="၁။ ၁၈ နှစ်ပြည့်ပြီး အရွယ်ရောက်လို့ ဘယ်လိုခံစားရလဲ။" data-zh="1. 年满18岁成为大人，你是什么感受？">1. How do you feel about being an adult at 18 years old?</div>
+    <textarea id="q1Input" placeholder="Write your real feelings here…"></textarea>
+    <div class="ans-display" id="q1Show"></div>
+    <div class="goodgirl-text" id="goodGirlText" style="display:none;" data-en="Good girl, I keep this in my heart 💌" data-my="ကောင်းတဲ့မိန်းကလေး၊ မင်းစကားကို ငါနှလုံးသားထဲထားမယ် 💌" data-zh="乖寶貝，我把這句話好好收在心裡 💌">Good girl, I keep this in my heart 💌</div>
+    <div class="btn-row">
+      <button class="ans-btn" id="q1NextBtn" data-en="Next →" data-my="ရှေ့သို့ →" data-zh="下一题 →">Next →</button>
+    </div>
+  </div>
+</div>
+<!-- Q2 runaway NO -->
+<div class="modal-overlay" id="q2Modal">
+  <div class="modal-box">
+    <div class="q-text" data-en="2. Do you love me?" data-my="၂။ ငါ့ကိုချစ်လား။" data-zh="2. 你爱我吗？">2. Do you love me?</div>
+    <div class="btn-row">
+      <button class="ans-btn" id="yesBtn" data-en="Yes 💖" data-my="ဟုတ်ကဲ့ 💖" data-zh="爱 💖">Yes 💖</button>
+      <button class="ans-btn no-btn" id="noBtn" data-en="No" data-my="မဟုတ်ပါဘူး" data-zh="不爱">No</button>
+    </div>
+    <div class="ans-display" id="q2Show"></div>
+  </div>
+</div>
+<!-- Q3 -->
+<div class="modal-overlay" id="q3Modal">
+  <div class="modal-box">
+    <div class="q-text" data-en="3. What do you really want to do in your 18th year? Write everything you dream of." data-my="၃။ ၁၈ နှစ်အတွင်း တကယ်လုပ်ချင်တဲ့အရာတွေက ဘာလဲ။ အိပ်မက်အားလုံးရေးပါ။" data-zh="3. 在18岁这一年，你真正想做什么？写下你所有的梦想。">3. What do you really want to do in your 18th year?</div>
+    <textarea id="q3Input" placeholder="Plans, wishes, little dreams…"></textarea>
+    <div class="ans-display" id="q3Show"></div>
+    <div class="btn-row">
+      <button class="ans-btn" id="saveAllBtn" data-en="Save all answers 💌" data-my="အဖြေအားလုံးသိမ်းဆည်းမယ် 💌" data-zh="保存全部答案 💌">Save all answers 💌</button>
+    </div>
+  </div>
+</div>
+<!-- Final animated wish -->
+<div class="final-wish-wrap" id="finalWish">
+  <div class="final-text" data-en="Wish you all the best ✨" data-my="အကောင်းဆုံးတွေကို မင်းရရှိပါစေ ✨" data-zh="願你一切安好，萬事順遂 ✨">Wish you all the best ✨</div>
+</div>
+<audio id="bgAudio" loop preload="auto">
+  <source src="bgm.mp3" type="audio/mpeg">
+
+<script>
+// Language toggle
+const langBtns = document.querySelectorAll('.lang-btn');
+langBtns.forEach(btn=>{
+  btn.onclick = ()=>{
+    langBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const targetLang = btn.dataset.lang;
+    document.querySelectorAll('[data-'+targetLang+']').forEach(el=>{
+      el.innerHTML = el.dataset[targetLang];
+    })
+  }
+})
+// Music unlock - FIXED
+const bgAudio = document.getElementById('bgAudio');
+const musicBtn = document.getElementById('musicTrigger');
+let musicStarted = false;
+
+musicBtn.addEventListener('click', async () => {
+  try {
+    if (musicStarted) {
+      bgAudio.pause();
+      musicStarted = false;
+      musicBtn.textContent = "Tap here to enable music ♫";
+    } else {
+      await bgAudio.play();
+      bgAudio.loop = true;
+      musicStarted = true;
+      musicBtn.textContent = "Music is playing ✦ Tap to pause";
+    }
+  } catch (err) {
+    console.log("Audio error:", err);
+    alert("Audio failed: check if bgm.mp3 is in the same folder as this html file");
+  }
+});
+
+// 60s Countdown
+const countPage = document.getElementById('countPage');
+const mainPage = document.getElementById('mainPage');
+const timerEl = document.getElementById('timerDisplay');
+let sec = 60;
+const countInterval = setInterval(()=>{
+  sec--;
+  timerEl.textContent = sec;
+  if(sec <= 0){
+    clearInterval(countInterval);
+    countPage.classList.add('hidden-page');
+    mainPage.classList.remove('hidden-page');
+    startParticles();
+  }
+},1000);
+// Gift box open
+const giftBox = document.getElementById('giftBox');
+const letterModal = document.getElementById('letterModal');
+const closeLetter = document.getElementById('closeLetter');
+const memBtn = document.getElementById('memBtn');
+const qStartBtn = document.getElementById('qStartBtn');
+let giftOpened = false;
+giftBox.onclick = ()=>{
+  giftBox.classList.add('open');
+  setTimeout(()=>{
+    letterModal.classList.add('active');
+  },600);
+}
+closeLetter.onclick = ()=>{
+  letterModal.classList.remove('active');
+  if(!giftOpened){
+    giftOpened = true;
+    memBtn.style.display = "block";
+  }
+}
+// Memories modal
+const memModal = document.getElementById('memModal');
+const closeMem = document.getElementById('closeMem');
+memBtn.onclick = ()=> memModal.classList.add('active');
+closeMem.onclick = ()=>{
+  memModal.classList.remove('active');
+  qStartBtn.style.display = "block";
+}
+// Question flow
+const q1Modal = document.getElementById('q1Modal');
+const q2Modal = document.getElementById('q2Modal');
+const q3Modal = document.getElementById('q3Modal');
+const qStartBtnEl = document.getElementById('qStartBtn');
+const q1NextBtn = document.getElementById('q1NextBtn');
+const goodGirlText = document.getElementById('goodGirlText');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+const saveAllBtn = document.getElementById('saveAllBtn');
+const finalWish = document.getElementById('finalWish');
+qStartBtnEl.onclick = ()=> q1Modal.classList.add('active');
+document.getElementById('q1Input').oninput = function(){
+  document.getElementById('q1Show').innerText = "Your feeling: " + this.value;
+}
+q1NextBtn.onclick = ()=>{
+  goodGirlText.style.display = "block";
+  setTimeout(()=>{
+    q1Modal.classList.remove('active');
+    q2Modal.classList.add('active');
+  },1200);
+}
+// Runaway No button
+let noScale = 1;
+noBtn.addEventListener('mouseenter', ()=>{
+  noScale -= 0.18;
+  if(noScale < 0.1) noScale = 0.1;
+  noBtn.style.transform = `scale(${noScale})`;
+  const x = (Math.random()-0.5)*120;
+  const y = (Math.random()-0.5)*120;
+  noBtn.style.translate = `${x}px ${y}px`;
+})
+yesBtn.onclick = ()=>{
+  document.getElementById('q2Show').innerText = "Your answer: Yes 💖";
+  q2Modal.classList.remove('active');
+  q3Modal.classList.add('active');
+}
+document.getElementById('q3Input').oninput = function(){
+  document.getElementById('q3Show').innerText = "Your wishes: " + this.value;
+}
+function saveAnswers(){
+  const a1 = document.getElementById('q1Input').value;
+  const a2 = document.getElementById('q2Show').innerText;
+  const a3 = document.getElementById('q3Input').value;
+  localStorage.setItem('ans1',a1);
+  localStorage.setItem('ans2',a2);
+  localStorage.setItem('ans3',a3);
+  alert("Saved! I will keep your words 💌");
+  q3Modal.classList.remove('active');
+  setTimeout(()=> finalWish.classList.add('show'),400);
+}
+saveAllBtn.onclick = saveAnswers;
+// Load saved answers
+window.onload = ()=>{
+  const l1 = localStorage.getItem('ans1');
+  const l2 = localStorage.getItem('ans2');
+  const l3 = localStorage.getItem('ans3');
+  if(l1) {document.getElementById('q1Input').value=l1; document.getElementById('q1Show').innerText="Your feeling: "+l1;}
+  if(l2) document.getElementById('q2Show').innerText=l2;
+  if(l3) {document.getElementById('q3Input').value=l3; document.getElementById('q3Show').innerText="Your wishes: "+l3;}
+}
+// Particle hearts + petals
+function startParticles(){
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize',resizeCanvas);
+  let particles = [];
+  class Particle{
+    constructor(){
+      this.x = Math.random()*canvas.width;
+      this.y = canvas.height + 20;
+      this.size = Math.random()*11 +4;
+      this.speedY = Math.random()*1.2 +0.4;
+      this.speedX = (Math.random()-0.5)*0.8;
+      this.alpha = Math.random()*0.48 +0.22;
+      this.type = Math.random()>0.5 ? "heart" : "petal";
+    }
+    update(){
+      this.y -= this.speedY;
+      this.x += this.speedX;
+    }
+    draw(){
+      ctx.save();
+      ctx.globalAlpha=this.alpha;
+      if(this.type==="heart"){
+        ctx.fillStyle="#ffb8d2";
+        ctx.beginPath();
+        ctx.moveTo(this.x,this.y);
+        ctx.bezierCurveTo(this.x-this.size/2,this.y-this.size/2,this.x-this.size,this.y+this.size/3,this.x,this.y+this.size);
+        ctx.bezierCurveTo(this.x+this.size,this.y+this.size/3,this.x+this.size/2,this.y-this.size/2,this.x,this.y);
+        ctx.fill();
+      }else{
+        ctx.fillStyle="#ffd0dd";
+        ctx.beginPath();
+        ctx.ellipse(this.x,this.y,this.size*0.7,this.size*0.4,Math.PI/4,0,Math.PI*2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+  }
+  function spawn(){
+    particles.push(new Particle());
+  }
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(Math.random()>0.62) spawn();
+    for(let i=0;i<particles.length;i++){
+      particles[i].update();
+      particles[i].draw();
+      if(particles[i].y < -30){particles.splice(i,1);i--;}
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+</script>
+</body>
+</html>
